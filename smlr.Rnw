@@ -1,0 +1,81 @@
+\documentclass{article}
+
+\begin{document}
+\section*{\textbf{Simple linear regression.}}
+This document is meant to illustrate the process of simple linear regression in R.
+\subsection*{Basics}
+Simple linear regression analysis is used when you want to predict a dependent(y) numerical variable with one independent explanatory variable(x).
+An example is where a researcher predicts job performance from IQ scores.
+
+A sypical linear regression equation looks something like:
+$$y_i=\hat\beta_0+\hat\beta_1X_i$$
+
+We are going to predict the values of $\hat\beta_0 and \hat\beta_0$ which are the intercept and the coificint respectively.
+
+There are so many way to do this in R but i am going to do it in the simplest way possible.
+
+I am going to use a simple data set found in base R instal for illustration purposes.
+\subsection*{Examin the data}
+<<Examining the data before filtting our model>>=
+#Examin the data before fiting the model
+#load dplyr package
+names(women)#to see the variable names in our data set
+dim(women)#THIS will show us the number of variables and observations in our data set
+summarry(women)#orver view summary per variable
+cor(women)#gives a test of the correlation between the variables in the women data set
+dstat=function(x){
+  m=mean(x)
+  v=var(x)
+  std=sd(x)
+  return(c(mean=m,variance=v,standard_deviation=std))
+}
+sapply(women,dstat)
+@
+\textbf{Data Visualization,}
+<<data visualization>>=
+par(mfrow=c(2,2))
+hist(women$height)
+hist(women$weight)
+plot(women,xlab="height",ylab="weight",main="A plot of height againsy weight")
+lines(women,col="red")
+@
+\subsubsection*{The model}
+<<The model>>=
+#fitting the model
+fit=lm(weight~height,#regression formular
+       data = women )#the data set
+#summarizing our model
+summary(fit)
+
+@
+
+The summarize command will print the coefficients to the screen ,and other statistics.
+We can see that height has a positive association with weight and significant at p \< 0.001.the r squared value of 99.03\% also tells us the percentage of variation in weight explained by height.
+
+\section*{Regression Diagnostics}
+Performing a regression analysis is an excelent idea but we should also perform regression diagnostics in order to acertain that we are making the correct reporting.
+
+<<REGRESSION DIAGNOSTICS>>=
+#ploting the linear model
+par(mfrow=c(2,2))
+plot(fit)
+library(car)
+residplot <- function(fit, nbreaks=10) {
+z <- rstudent(fit)
+hist(z, breaks=nbreaks, freq=FALSE,
+xlab="Studentized Residual",
+main="Distribution of Errors")
+rug(jitter(z), col="brown")
+curve(dnorm(x, mean=mean(z), sd=sd(z)),
+add=TRUE, col="blue", lwd=2)
+lines(density(z)$x, density(z)$y,
+col="red", lwd=2, lty=2)
+legend("topright",
+legend = c( "Normal Curve", "Kernel Density Curve"),
+lty=1:2, col=c("blue","red"), cex=.7)
+}
+@
+
+
+
+\end{document}
