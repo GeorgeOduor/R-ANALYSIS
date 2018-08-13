@@ -5,4 +5,11 @@ Click the files to open and read the codes.
 
 1.simple linear regression
 
-2.Using dplyr package in R. 
+2.Using dplyr package in R.
+
+3.Performing t-tests in R
+
+4.Multiple linear Regression:Analysis of Overall employee job satisfaction.
+
+
+
