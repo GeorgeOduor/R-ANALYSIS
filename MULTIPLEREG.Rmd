@@ -18,9 +18,10 @@ The set of independent variables are believed to have a linear relation ship wit
 The equation looks something like:
 $$y=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3+...+\beta_nx_n+\epsilon_{ij}$$
 
-where the betas are the coefficients.
+where the betas are the regression coefficients.
 
 ##Case:Employee satisfaction Study
+
 A company held an employee satisfaction survey which included overall employee satisfaction. Employees also rated some main job quality aspects and slowed to rate in a scale of 0 to 100 representing total disagreement and total agreement respectively.This data was stored in a file called **work.sav**.
 
 The main question in this problem is:
