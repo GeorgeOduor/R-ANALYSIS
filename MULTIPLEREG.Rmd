@@ -1,0 +1,347 @@
+---
+title: "MULTIPLE LINEAR REGRESSION"
+author: "George"
+date: "August 9, 2018"
+output: word_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# MULTIPLE LINEAR REGRESSION
+
+Multiple linear regression is used to predict a quantitative dependent variable from a number of explanatory variables.
+
+The set of independent variables are believed to have a linear relation ship with the dependent variable.
+The equation looks something like:
+$$y=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3+...+\beta_nx_n+\epsilon_{ij}$$
+
+where the betas are the coefficients.
+
+##Case:Employee satisfaction Study
+A company held an employee satisfaction survey which included overall employee satisfaction. Employees also rated some main job quality aspects and slowed to rate in a scale of 0 to 100 representing total disagreement and total agreement respectively.This data was stored in a file called **work.sav**.
+
+The main question in this problem is:
+
+**Which quality aspects predict job satisfaction and to which extent?**
+
+First I will need to import the data and necessary libraries into my R working session.
+1.  Libraries
+```{r}
+library(foreign)#for inporting .sav files
+library(dplyr)#for data manipulation
+library(ggplot2)#for data visualization
+library(tidyverse)#for data manipulation
+library(broom)#for data manipulation
+library(car)#for regression analysis
+library(reshape2)#data manipulation
+library(leaps)#analysing correlations
+library(corrplot)#analysing correlations
+library(Amelia)#missing data check
+library(mlbench)#
+
+```
+2.  The Data
+```{r}
+work=read.spss("C:/Users/Ruralnet20/Downloads/work.sav",to.data.frame = TRUE,use.value.labels = FALSE)
+```
+3.  Basic Data Exploration  
+
+Before  I jump in i will take some time to peep into my data set and get to know its structure and make up and check for missing data just incase.
+
+```{r}
+glimpse(work)
+work2=work %>% mutate(sex=factor(sex,levels = c(1,0),labels = c("Male","Female"))) #for recording sex variable
+work2 %>% select(sex) %>% str
+missmap(work2,col = c("green","red"),legend = FALSE)
+```
+
+Cool!No missing data!
+
+
+From the output above its evident that i am working with a datset containing 50 observations and 9 variables.For small modification i will transform sex variable to factor as shown above.
+
+
+###INSPECT HISTOGRAMS
+Before starting anything with my data,i will inspect my histograms to see if my variables make some sense.
+```{r}
+work2long=melt(work2[,-3],id.vars = c("id","sex"))
+head(work2long)
+par(mfrow=c(3,4))
+  for (i in 4:9) {
+  histogram = hist(work2[,i],col = rainbow(7),main = names(work2[i]),xlab = names(work2[i]))
+  }
+```
+OR with ggplot
+```{r}
+work2long %>% ggplot(mapping = aes(x=value,y=,fill=variable))+geom_histogram(aes(y=..density..),binwidth = 10 ,alpha=.5, position="identity")+facet_wrap(variable~.)+geom_vline(aes(xintercept=mean(value)),linetype="dashed",size=1,colour="red")+geom_density(alpha=.2, fill="#FF6666")
+```
+
+My plots above shows me that there is no missing data available ,no serious outliersand all my frequencies are plausible.
+
+##Inspecting Descriptives
+
+Despite having graphs to help us to visualize data,i.e getting a clear picture of the distribution and shape of our data,tables are also a good tool that can help us do the same.
+```{r}
+work2long %>%group_by(variable) %>% summarise(mean=mean(value),n=length(value),max=max(value),min=min(value),sd=sd(value))
+work2long %>% ggplot(mapping = aes(x=variable,y=value,fill=variable))+geom_boxplot()
+```
+
+###Inspecting scatter Pots(Bivariate correlation)
+
+At this point i am going to to use a scatter plot to inspect if my predictors have a nearly linear relation with my dependent variable.
+
+Its more important to inspect linearity for each predictor separately.This is because residual plots give us a correlation of weighted predictor variables vs residuals.In case one explanatory variable has a covelinear relation will then it will not be shown.This is why I have chosen to bi-variate correlation two at a time
+
+The bi-variate correlations are provided by the cor() and plot
+```{r}
+vars=work2 %>% select(everything(),-c(id,sex,bday)) %>% cor
+round(vars,3)
+#plot(work2[,4:9])
+#or
+pairs(work2[,4:9],col=rainbow(7))
+```
+
+My correlations show that all explanatory variables correlate *statistically significantly* with the dependent variable.Unfortunately there is also some substantial correlations among predictors themselves,i.e they overlap.
+
+
+###Regression Model
+###Fitting My Model
+```{r}
+names(work2)
+fit=lm(overall~supervisor+conditions+colleagues+workplace+tasks,data = work2)
+summary(fit)
+```
+
+Woa!Allot of chunk here but lets break it into pieces.
+Multiple linear regression coefficients indicate an increase in in dependent variable for a unit change in a predictor variable ,holding other predictor variables constant
+
+In the above output the regression coefficient for workplace is 0.2558 suggesting an increase of 1 percent in overal satisfaction is is associated with a 0.2558 percent increase in workplace,controlling for the remaining variables.This coefficient is significantly different from zero at p<0.1 level.
+
+Taken together the predictor variables account for 48\% (**Multiple R squared**) of the variance in work place satisfaction among workers .
+a). t-value
+
+T-value can be interprated as.A larger t-value indicates that it is less likely that the coefficient is not equal to zero purely by chance .So the larger the t value the better.
+
+Pr(>|t|) or in most cases the p-value is the probability of getting a larger t value as high or higher than the observed value when the null hypothesis is true.In this case if the p-value is low then the coefficients are significantly different from zero that is they are said to be significant.
+
+b.) R-squared
+
+R squared value tells us the propotion of variationin the dependent (response) variable that has been explain by our model.
+$$R^2=1-\frac{SSE}{SST}$$ for our model is its 48\%.
+C.)Adjusted R-squared
+
+R Squared value increases with the increase of more explanatory variables in the model.Adjusted R squared penalizes total value for the number of terms in a model.
+$$R_{adj}^2=1-\frac{MSE}{MST}$$
+d.) Standard Error and the F-Statistic
+
+These two values measures the godness of fit.
+$se=\sqrt{\frac{SSE}{n-q}}$ is the average error in predicting overal job satisfaction from the other predictor variables using the model.
+$F=\frac{MSR}{MSE}$ tests whether the predictor variables taken together ,predict the response variable above chance levels.In cases of one predictor variable the f test is equal to t-test.
+
+##Regression Diagnostics
+
+**How good is my model?**
+Up to this point there is nothing that tels me if my model is good or not.My confidence in reporting regression parameters depends on how well they met regression assumptions.
+
+A regression model should meet the following assumptions.
+
+1.  **Normality**
+
+Dependent variable should be normaly distributed for a fixed set of explanatory variables.
+```{r}
+qqPlot(fit,labels = col.names(work2[,4:9],id.method="identity",simulate=TRUE,main="Q-Q Plot"))
+work2[c(12,15),]
+fitted(fit)[c("12","15")]
+rstudent(fit)[c("12","15")]
+#
+```
+
+
+2.  **Independence**
+
+Explanatory variables should be independent of the predictor variables.The best way to assess this assumption ones knowledge on how the data were collected.
+
+I am going to use durbin watson test to test for detetion of serialy auto correlated errors.
+
+```{r}
+durbinWatsonTest(fit)
+```
+The reuslts above shows us that the is no autocorrelation among my explanatory variables(p=0.088).The lag value of 1 indicates that each observation is compared with the next one.
+
+
+3.  **Linearity**
+
+The dependent variable should be linearly related to independent variables.
+
+I am giong to look for any systematic depature from the linear model above.
+```{r}
+crPlots(fit)
+```
+
+Good!Wee can see that most of our data points linear.
+4.  **Homoscedasticity**
+
+The variance of the dependent variable doesn’t vary with the levels of the independent variables.
+
+I am going to use the ncvTest() function in the ```car``` package 
+```{r}
+ncvTest(fit)
+spreadLevelPlot(fit)
+```
+Another assumption met!Feels good.The test score is not significant (p=0.15).The points from a random horizontal line around the line of best fit.
+
+####Model selection.
+
+**Which predictor variables substancialy contribute to predicting job satisfaction?**
+
+My correlations showed that all explanatory variables correlate *statistically significantly* with the dependent variable.Unfortunately there is also some substantial correlations among predictors themselves,i.e they overlap.
+
+Back to the above question.How do I get the "Best" model.I am going to do this using some the following ways.
+
+1.  Comparing models.
+  + anova()
+  + AIC()
+2.  Variable selection.
+  + Stepwise Regression.
+  + All Subsets Regression.
+
+####Comparing models
+This can be done by the anova() function.It is is used in comparison of two models.In my previous model the variable conditions was not significant so i will compare a model  where there is no condition and andthe full model. 
+```{r}
+
+fit2=lm(formula = overall ~ supervisor + colleagues + workplace + tasks,data = work2)
+anova(fit2,fit)
+```
+
+Looking at the above output,we can see that the test is significant at p=0.003 showinhg that work conditions add to the linear prediction and hence we are not supposed to drop it.
+
+**Akaike Information Criterion(AIC)** provides a quicker method for comparing models.Models with a smaller AIC nsicaring adequate fit with fewer parameters are prefered.
+
+```{r}
+AIC(fit,fit2)
+```
+
+My output is sugesting that a model with all the predictor variables still is better.
+
+####Variable Selection.
+
+The above model comparison is agood method but not the best.It is not effective when youhave somany variables in your model.
+
+
+*STEPWISE REGRESSION*
+
+Stepwise regression compares variables in a model by adding/deleting models one at a time.This is done when adition addition/deletion doesnt add improvement to the model.
+
+```{r}
+library(MASS)
+stepAIC(fit,direction = "backward")
+```
+
+The stepAIC above suggests that the model with conditions ,workplace and tasks is better since it has the lowest AIC value.
+
+
+**ALL SUBJECTS REGRESSION**
+
+The above methods does not compare every combination of the regression model.This is easly done with the all subsets regression method.
+
+I will perform all subsets regression by using regsubsets() function from the leaps package.
+
+```{r}
+leaps=regsubsets(overall ~ supervisor + conditions + colleagues + workplace + tasks, data = work2,nbest = 4)
+plot(leaps,scale = "adjr2")
+```
+
+The figure above shows all posible combinations of predictor models.We can see that a model consisting of only one predictor variable has an adjusted r squared value of 0.16 and that of all variables except tasks has an adjusted r squared of 0.35.The r-squared value  start stabilizing at 0.43 as we include 4 best predictors.
+
+My graph suggests that the model without supervisor or colleagues or both is the "best"(of course no model is best!) for explaining employee job satisfaction.Simple!
+
+###Model Prediction
+
+**How will my model perform in real life data??**
+
+We did a good job fitting my model,checked diagnostics and came up with the model i think is best but i dont know how my model will perform in real life.
+
+I will split my data into a 80:20 ratio sample ,ie (training:test) use my best combination of predictor variables from above  to build a model then use this model to predict the dependent variable on test data.
+
+1.  Creating the training and the test data samples from original.
+
+```{r}
+set.seed(50)
+worktrainindex=sample(1:nrow(work2),0.8*nrow(work2))#row indices for work training data
+worktrainingData = work2[worktrainindex,4:9]
+worktestData = work2[-worktrainindex,4:9]
+```
+
+2.  Modelling on training data
+
+```{r}
+trainmod=lm(overall ~ supervisor + conditions + colleagues + 
+    workplace + tasks, data = worktrainingData)#training model
+```
+
+I am going to predict the distance on test data 
+```{r}
+distance = predict(trainmod,worktestData) #predicting the distance
+```
+
+3.  Reviewing Diagnostic Measures
+
+```{r}
+summary(trainmod)
+```
+
+Looking at the model sumary results i can see that all my p values for my predictors coeficients are significant.It gives me some confidence that my model is statistically significant.
+
+
+4.  Calculating prediction Accuracy and Error rates.
+
+To calculate accuracy measurement,I will use a simple correlation between the actuals and the predicted values.The higher the correlation accuracy the better the values are predicted by the model.Also using k-fold cluster validation can be applied.
+
+All the codes below can help you arrive at the same conclution
+```{r}
+actuals=worktestData$overall
+predicteds=distance
+correlations=cor(data.frame(actuals,predicteds))
+correlations
+#corrplot(correlations,method = "circle")
+pairs(data.frame(actuals,predicteds))
+#scatterplotMatrix(data.frame(actuals,predicteds))
+```
+
+**A bit of K-Fold cross validation.**
+
+Here sample is divided into k mutualy exclusive sub-samples.The k is used as the test group while the remaining k-1 sub-samples are treated as the training group.The performance from  the k prediction equations is averaged and used to compare linear models.
+
+
+
+```{r}
+#library(DAAG)
+#shrinkage=suppressWarnings(CVlm(df=work2[,4:9],form.lm=supervisor + conditions + colleagues + workplace + tasks,m=5,dots=FALSE,seed=29,legend.pos="topleft",printit = FALSE,nain="K FOLD CROSS VALIDATION"))
+#attr(shrinkage,'ms')
+```
+
+Thanks for reading along!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
