@@ -18,7 +18,7 @@ ANOVA (Analysis of Variance) is a statistical test used for testing if a signifi
 
 The hypothesis test of anova for t population is:
 
- $ H_0$ :$\mu_1=...=\mu_t$
+ "$ H_0$ :$\mu_1=...=\mu_t$"
 
 $H_\alpha$:not all $\mu_i$($i=1,...t$) are equal.
 
