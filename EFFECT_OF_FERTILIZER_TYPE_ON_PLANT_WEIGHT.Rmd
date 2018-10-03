@@ -13,28 +13,28 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ANOVA (Analysis of Variance) is a statistical test used for testing if a significant difference occurs between two or more groups.In case of two groups ,results from ANOVA equals that from independent sample t test because.This is because statistically we know that $F^2=t$.
 
-#Hypothesis
+# Hypothesis
 
 
 The hypothesis test of anova for t population is:
 
-$H_0$:$\mu_1=...=\mu_t$
+ $ H_0$ :$\mu_1=...=\mu_t$
 
 $H_\alpha$:not all $\mu_i$($i=1,...t$) are equal.
 
 ## ONE WAY ANOVA
 In one way ANOVA ,we compare the dependent variable means of two or more groups defined by categorical grouping factor.
 
-##Case Problem
+## Case Problem
 We want to investigate if the wight if some plants is influenced with using a type of fertilizer.For a sample i have 90 plants randomly divided into 3 groups of 30 plants each.I apply a biological fertilizer to the first group ,a chemical fertilizer to the second group and no fertilizer to the last group.I also have the weights of the plants after a period of 3 months.
-###Data Import
+### Data Import
 ```{r}
 library(foreign)
 plants=read.spss("parsley.sav",to.data.frame = TRUE,use.value.labels = TRUE)
 
 ```
 
-###Data Checking
+### Data Checking
 
 It is important to check our data for anomalies and also get a basic i idea of what it looks like.
 ```{r}
@@ -71,7 +71,7 @@ library(car)
 qqPlot(lm(weight~fertilizer,data=plants),simulate=TRUE,main="Q-Q Plot",labels = TRUE,ylab = "studentized residuals")
 ```
 
-##Running ANOVA TEST IN R
+## Running ANOVA TEST IN R
 ```{r}
 fit <- aov(weight ~ fertilizer,data = plants)
 summary(fit)
@@ -83,12 +83,12 @@ I will pay close attention to the summary output above.The DF column show the de
 
 This means that the weights are significantly affected by the type of fertilizer.
 
-###Reporting
+### Reporting
 
 My 3 fert types resulted in different mean weights for parsley plants,F(2,87)=3.7,P=0.028.
 
 
-###Post Hoc Test(Multiple Comparisons)
+### Post Hoc Test(Multiple Comparisons)
 
 Lets say I am dealing with three types of fertilizers and i reach at a conclution that my fertilizers effect are different from each other,how can i know which is different from which?
 
@@ -102,7 +102,7 @@ plot(TukeyHSD(fit))
 ```
 
 
-#ONE WAY ANCOVA
+# ONE WAY ANCOVA
 This type of anova 
 
 
