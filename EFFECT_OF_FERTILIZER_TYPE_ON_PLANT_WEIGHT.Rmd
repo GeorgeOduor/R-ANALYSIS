@@ -100,20 +100,3 @@ par(las=2)
 par(mar=c(5,8,4,2))
 plot(TukeyHSD(fit))
 ```
-
-
-# ONE WAY ANCOVA
-This type of anova 
-
-
-
-
-
-
-
-
-
-
-
-
-
