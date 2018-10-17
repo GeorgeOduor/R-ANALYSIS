@@ -11,6 +11,6 @@ Click the files to open and read the codes.The data files are also in this repos
 
 4.  [**Multiple linear Regression: Analysis of Overall employee job satisfaction(DATASET-work.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/MULTIPLEREG.Rmd)
 
-5.  **[ONE WAY ANOVA:- EFFECT OF FERTILIZER TYPE ON PLANT WEIGHT]**(https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT_OF_FERTILIZER_TYPE_ON_PLANT_WEIGHT.Rmd)
+5. [**ONE WAY ANOVA:- EFFECT OF FERTILIZER TYPE ON PLANT WEIGHT**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT_OF_FERTILIZER_TYPE_ON_PLANT_WEIGHT.Rmd)
 
-6. **[TWO WAY FACTORIAL ANOVA:- EFFECT OF DIET AND EXCERCISE ON WEIGHT LOSS]**(https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT-OF-DIET-AND-EXERCISE-ON-WEIGHT-LOSS.Rmd)
+6. [**TWO WAY FACTORIAL ANOVA:- EFFECT OF DIET AND EXCERCISE ON WEIGHT LOSS**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT-OF-DIET-AND-EXERCISE-ON-WEIGHT-LOSS.Rmd)
