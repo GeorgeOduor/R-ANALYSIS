@@ -17,4 +17,4 @@ Click the files to open and read the codes.The data files are also in this repos
 
 5. [**ONE WAY ANOVA:- EFFECT OF FERTILIZER TYPE ON PLANT WEIGHT**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT_OF_FERTILIZER_TYPE_ON_PLANT_WEIGHT.md)
 
-6. [**TWO WAY FACTORIAL ANOVA:- EFFECT OF DIET AND EXCERCISE ON WEIGHT LOSS**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT-OF-DIET-AND-EXERCISE-ON-WEIGHT-LOSS.Rmd)
+6. [**TWO WAY FACTORIAL ANOVA:- EFFECT OF DIET AND EXCERCISE ON WEIGHT LOSS**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT-OF-DIET-AND-EXERCISE-ON-WEIGHT-LOSS.md)
