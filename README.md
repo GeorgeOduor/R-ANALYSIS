@@ -11,7 +11,7 @@ Click the files to open and read the codes.The data files are also in this repos
 
 2.  [**Using dplyr package in R.**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/dplyr.Rmd)
 
-3.  [**Performing t-tests in R dataset(water.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/Ttests.Rmd)
+3.  [**Performing t-tests in R dataset(water.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/Ttests.md)
 
 4.  [**Multiple linear Regression: Analysis of Overall employee job satisfaction(DATASET-work.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/MULTIPLEREG.md)
 
