@@ -13,7 +13,7 @@ Click the files to open and read the codes.The data files are also in this repos
 
 3.  [**Performing t-tests in R dataset(water.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/Ttests.Rmd)
 
-4.  [**Multiple linear Regression: Analysis of Overall employee job satisfaction(DATASET-work.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/MULTIPLEREG.Rmd)
+4.  [**Multiple linear Regression: Analysis of Overall employee job satisfaction(DATASET-work.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/MULTIPLEREG.md)
 
 5. [**ONE WAY ANOVA:- EFFECT OF FERTILIZER TYPE ON PLANT WEIGHT**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/EFFECT_OF_FERTILIZER_TYPE_ON_PLANT_WEIGHT.md)
 
