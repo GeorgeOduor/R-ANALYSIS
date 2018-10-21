@@ -136,7 +136,10 @@ mydata1 %>% summarise(ttest=list(tidy(t.test(brake,mu=322)))) %>% unnest()
 Interpretation
 --------------
 
-Looking at the above output we can safely conclude that at 95% CI the average diamerter of the wheels produced by all machines is significantly different from the stipulated diamete of 322.The probability of obtaining our sample results when the null hypothesis is true is at p=0.0376. \#\#\#Within Group tests Since my data is grouped by brakes,it will be important to carry out this test within the groups.This will enable us to scrutinize the machines.
+Looking at the above output we can safely conclude that at 95% CI the average diamerter of the wheels produced by all machines is significantly different from the stipulated diamete of 322.The probability of obtaining our sample results when the null hypothesis is true is at p=0.0376. 
+
+### Within Group tests 
+Since my data is grouped by brakes,it will be important to carry out this test within the groups.This will enable us to scrutinize the machines.
 
 ``` r
 mydata1 %>% group_by(machines) %>% summarise(results=list(tidy(t.test(brake,mu=322)))) %>% unnest()
@@ -167,7 +170,7 @@ The variable to be compared is assumed to have a normal distribution with the sa
 The test statistic
 ------------------
 
-$$ t = \\frac{\\bar y\_1-\\bar y\_2}{s\\sqrt{\\frac{1}{n\_1}+\\frac{1}{n\_2}}} $$
+$ t = \\frac{\\bar y\_1-\\bar y\_2}{s\\sqrt{\\frac{1}{n\_1}+\\frac{1}{n\_2}}} $
  where: where$\\bar y\_1$ and $\\bar y\_2$ are the means in groups 1 and 2,n1 and n2 are the sample sizes, and s is the pooled standard deviation.
 
 ### The hypotheses.
