@@ -217,7 +217,7 @@ train %>% ggplot(aes(train$Item_Outlet_Sales)) + geom_histogram(binwidth = 100,f
   labs(x = "Item_Outlet_Sales",title="Histogram of Item Outlet sales",caption = "Source:BigMart Data")
 ```
 
-![](bigmart_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](R-ANALYSIS/bigmart_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 This histogram is plainly showing that our data is skewed to the right and data transormation will be neccesary to try and correct this problem.
 
