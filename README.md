@@ -9,7 +9,7 @@ Click the files to open and read the codes.The data files are also in this repos
 
 1.  [**Simple linear regression**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/smlr.Rnw)
 
-2.  [**Using dplyr package in R.**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/dplyr.Rmd)
+2.  [**Using dplyr package in R.**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/dplyr.md)
 
 3.  [**Performing t-tests in R dataset(water.sav)**](https://github.com/GeorgeOduor/R-ANALYSIS/blob/master/projects/Ttests.md)
 
