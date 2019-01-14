@@ -3,6 +3,9 @@ These are my R statistical analysis codes.
 The examples given here are made as simple as possible for easy understanding for beginners.
 Click the files to open and read the codes.The data files are also in this repository.
 
+### Data Visualization with R shiny Dashboards
+1. [NATIONAL KCSE performance trend by sex between the year 2009 and 2013 as recorded by Kenya National Bureau of Statistics](https://georgeapp.shinyapps.io/kcsetrend/)
+
 ### Machine Learning
 1.  [**BIGMART PROJECT**](https://github.com/GeorgeOduor/bigmart) (_predictive modeling of product sales_)
 ### Micro projects
