@@ -7,7 +7,7 @@ Click the files to open and read the codes.The data files are also in this repos
 1. [NATIONAL KCSE performance trend by sex between the year 2009 and 2013 as recorded by Kenya National Bureau of Statistics](https://github.com/GeorgeOduor/First-ShinyApp)
 
 ### Machine Learning
-1.  [SUPPORT VECTOR MACHINES WITH R](https://github.com/GeorgeOduor/Support-Vector-Machines-IN-R)
+1.  [SUPPORT VECTOR MACHINES WITH R](https://github.com/GeorgeOduor/Support-Vector-Machines-IN-R)-Breast Cancer Prediction.
 
 2.  [**BIGMART PROJECT**](https://github.com/GeorgeOduor/bigmart) (_predictive modeling of product sales_)
 ### Micro projects
